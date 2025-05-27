@@ -1,0 +1,8 @@
+# 忽略规则
+node_modules
+.next
+dist
+out
+*.svg
+*.md
+*.log
