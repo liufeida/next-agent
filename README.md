@@ -10,3 +10,12 @@ First, run the development server:
 pnpm dev
 
 ```
+
+```格式化配置
+https://www.prettier.cn/
+
+# prettier
+1.不想format的code，用prettier-ignore在代码上方注释
+2.prettier --cache --write src
+
+```

@@ -1,8 +1,15 @@
-# 忽略规则
-node_modules
-.next
-dist
-out
-*.svg
-*.md
-*.log
+**/*.md
+**/*.svg
+**/*.ejs
+**/*.html
+package.json
+.umi
+.umi-production
+.umi-test
+# 忽略不需要的检查的代码
+/node_modules
+/test
+/unittest
+/**/build
+/**/dist
+/**/static

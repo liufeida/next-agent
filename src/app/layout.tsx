@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "@/theme/globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "My Blog",
@@ -22,9 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </head>
       <body className={roboto.className}>
         <AntdRegistry>{children}</AntdRegistry>
