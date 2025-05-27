@@ -1,0 +1,13 @@
+{
+    // 启用保存时自动格式化
+    "editor.formatOnSave": true,
+    // 指定默认格式化工具为 Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // 强制读取项目配置文件（优先级高于全局）
+    "prettier.requireConfig": true,
+    // 允许使用 JavaScript 配置文件（.prettier.js）
+    "prettier.configParsingStrategy": "cli",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

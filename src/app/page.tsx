@@ -1,10 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
+import { createStyles } from "antd-style";
 import { FC } from "react";
 
+const useStyles = createStyles(({ css }) => {
+  return {
+    container: {
+      color: "red",
+    },
+  };
+});
+
 const Page: FC = () => {
+  const { styles } = useStyles();
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
@@ -15,10 +26,9 @@ const Page: FC = () => {
       <div className='flex w-full items-center justify-center'>
         <div className='shadow-gray w-96 cursor-pointer rounded-md bg-white p-8 shadow-md inset-shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl'>
           <p className='flex items-center gap-2 pb-4'>
-            <div className=''>
-              <OpenAIOutlined spin />
-            </div>
+            <OpenAIOutlined spin />
             <span className='font-bold'>My Blog</span>
+            <span className={styles.container}>123</span>
           </p>
           <Form
             name='login'

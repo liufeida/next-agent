@@ -20,6 +20,7 @@ module.exports = {
   requirePragma: false,
   // 不需要自动在文件开头插入 @prettier
   insertPragma: false,
+  tabWidth: 2,
   overrides: [{ files: ".prettierrc", options: { parser: "json" } }],
   plugins: [
     "prettier-plugin-organize-imports",
