@@ -3,7 +3,7 @@
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import { FC } from "react";
- 
+
 const Page: FC = () => {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
@@ -13,42 +13,19 @@ const Page: FC = () => {
     <div className="h-screen flex">
       <div className="w-9/5 max-xl:w-7/5 max-lg:w-5/5 max-md:w-0 bg-[url(../assets/images/loginBg1.jpg)] bg-cover bg-center"></div>
       <div className="w-full flex justify-center items-center">
-        <div className="bg-white w-2/3 rounded-sm shadow-md inset-shadow-sm shadow-gray p-8 transition hover:shadow-2xl hover:-translate-y-4 duration-300 cursor-pointer">
-          <p className="pb-4 flex gap-1">
-            <div>
-              <OpenAIOutlined />
+        <div className="bg-white rounded-md shadow-md inset-shadow-sm shadow-gray p-8 w-96 transition hover:shadow-2xl hover:-translate-y-2 duration-300 cursor-pointer">
+          <p className="pb-4 flex gap-2 items-center">
+            <div className="">
+              <OpenAIOutlined spin />
             </div>
-            <span>My Blog</span>
+            <span className="font-bold">My Blog</span>
           </p>
-          <Form
-            name="login"
-            initialValues={{ remember: true }}
-            style={{ maxWidth: 360 }}
-            onFinish={onFinish}
-            size="large"
-            layout="vertical"
-          >
-            <Form.Item
-              name="username"
-              label="Username"
-              rules={[
-                { required: true, message: "Please input your Username!" },
-              ]}
-            >
+          <Form name="login" initialValues={{ remember: true }} style={{ maxWidth: 360 }} onFinish={onFinish} size="large" layout="vertical">
+            <Form.Item name="username" label="Username" rules={[{ required: true, message: "Please input your Username!" }]}>
               <Input prefix={<UserOutlined />} placeholder="Username" />
             </Form.Item>
-            <Form.Item
-              name="password"
-              label="Password"
-              rules={[
-                { required: true, message: "Please input your Password!" },
-              ]}
-            >
-              <Input
-                prefix={<LockOutlined />}
-                type="password"
-                placeholder="Password"
-              />
+            <Form.Item name="password" label="Password" rules={[{ required: true, message: "Please input your Password!" }]}>
+              <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
             </Form.Item>
             <Form.Item>
               <Flex justify="space-between" align="center">
