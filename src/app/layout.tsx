@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-page-custom-font */
+import RouterProviderRoot from "@/router";
 import "@/theme/globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "My Blog",
@@ -11,11 +11,6 @@ export const metadata: Metadata = {
     icon: "/icon.svg",
   },
 };
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const roboto = Roboto({
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
@@ -29,7 +24,9 @@ export default function RootLayout({
         <link href='https://fonts.googleapis.com/css2?family=Inter@400;500;700&display=swap' rel='stylesheet' />
       </head>
       <body>
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          {children} <RouterProviderRoot />
+        </AntdRegistry>
       </body>
     </html>
   );
