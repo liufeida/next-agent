@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import loginBg2 from "@/assets/images/loginBg2.png";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import { createStyles } from "antd-style";
 import Image from "next/image";
 import { FC } from "react";
-import loginBg2 from '@/assets/images/loginBg2.png'
 
 const useStyles = createStyles(({ css }) => {
-  return {
-  };
+  return {};
 });
 
 const Page: FC = () => {
@@ -22,8 +21,12 @@ const Page: FC = () => {
   // bg-[url(../assets/images/loginBg2.png)] bg-contain bg-no-repeat bg-center
   return (
     <div className='flex h-screen'>
-      <div className={`flex justify-center items-center w-9/5 max-xl:w-7/5 max-lg:w-5/5 max-md:w-0`}>
-        <Image className="w-md blur-sm grayscale cursor-pointer transition ease-in duration-500 hover:filter-none" src={loginBg2} alt="123" />
+      <div className={`flex w-9/5 items-center justify-center max-xl:w-7/5 max-lg:w-5/5 max-md:w-0`}>
+        <Image
+          className='w-md cursor-pointer blur-sm grayscale transition duration-500 ease-in hover:filter-none max-[1000px]:filter-none'
+          src={loginBg2}
+          alt='123'
+        />
       </div>
       <div className='flex w-full items-center justify-center'>
         <div className='shadow-gray w-96 cursor-pointer rounded-md bg-white p-8 shadow-md inset-shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl'>
