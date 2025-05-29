@@ -4,16 +4,10 @@
 import loginBg2 from "@/assets/images/loginBg2.png";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
-import { createStyles } from "antd-style";
 import Image from "next/image";
 import { FC } from "react";
 
-const useStyles = createStyles(({ css }) => {
-  return {};
-});
-
-const Login: FC = () => {
-  const { styles } = useStyles();
+const Page: FC = () => {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
@@ -21,9 +15,9 @@ const Login: FC = () => {
   // bg-[url(../assets/images/loginBg2.png)] bg-contain bg-no-repeat bg-center
   return (
     <div className='flex h-screen'>
-      <div className={`flex w-9/5 items-center justify-center max-xl:w-7/5 max-lg:w-5/5 max-md:w-0`}>
+      <div className={`flex w-5/5 items-end justify-center max-xl:w-7/5 max-lg:w-5/5 max-md:w-0`}>
         <Image
-          className='w-md cursor-pointer blur-sm grayscale transition duration-500 ease-in hover:filter-none max-[1000px]:filter-none'
+          className='w-sm cursor-pointer blur-sm grayscale transition duration-500 ease-in hover:filter-none max-[1000px]:filter-none'
           src={loginBg2}
           alt='123'
         />
@@ -88,4 +82,4 @@ const Login: FC = () => {
   );
 };
 
-export default Login;
+export default Page;

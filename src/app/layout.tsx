@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import RouterProviderRoot from "@/router";
 import "@/theme/globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
@@ -24,9 +23,8 @@ export default function RootLayout({
         <link href='https://fonts.googleapis.com/css2?family=Inter@400;500;700&display=swap' rel='stylesheet' />
       </head>
       <body>
-        <AntdRegistry>
-          {children} <RouterProviderRoot />
-        </AntdRegistry>
+        {/* <Link href='/home'>Home</Link> */}
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   );
