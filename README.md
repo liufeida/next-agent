@@ -19,3 +19,25 @@ https://www.prettier.cn/
 2.prettier --cache --write src
 
 ```
+
+## nextjs 版本升级
+
+| 15.3.2 -> 16.2.4
+
+```bash
+# 使用 pnpm
+pnpm dlx @next/codemod@canary upgrade latest
+
+# 使用 npm
+npx @next/codemod@canary upgrade latest
+
+# 使用 yarn
+yarn dlx @next/codemod@canary upgrade latest
+
+# 使用 bun
+bunx @next/codemod@canary upgrade latest
+
+rm -rf .next
+pnpm build
+pnpm dev
+```

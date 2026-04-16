@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import "@/theme/globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
+import "../theme/globals.css";
 
 export const metadata: Metadata = {
   title: "My Blog",
