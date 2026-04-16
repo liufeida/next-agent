@@ -1,15 +1,21 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import loginBg2 from "@/assets/images/loginBg2.png";
+import { ACCESS_TOKEN_KEY } from "@/contants";
+import { getCurrentUser, login, type LoginParams } from "@/services";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
 import { FC } from "react";
 
 const Page: FC = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values: LoginParams) => {
+    const res = await login({ body: values });
+    console.warn("res: ", res.data?.access_token);
+    localStorage.setItem(ACCESS_TOKEN_KEY, res.data?.access_token ?? "");
+  };
+
+  const handleClick = async () => {
+    await getCurrentUser();
   };
 
   // bg-[url(../assets/images/loginBg2.png)] bg-contain bg-no-repeat bg-center
@@ -71,6 +77,12 @@ const Page: FC = () => {
 
             <Form.Item>
               <Button block type='primary' htmlType='submit'>
+                Log in
+              </Button>
+              or <a href=''>Register now!</a>
+            </Form.Item>
+            <Form.Item>
+              <Button block type='primary' onClick={() => handleClick()}>
                 Log in
               </Button>
               or <a href=''>Register now!</a>

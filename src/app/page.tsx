@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { redirect } from "next/navigation";
 
 const Page = () => {
-  return <div className='flex h-screen justify-around'>init page</div>;
+  redirect("/login");
+  return <>init pages</>;
 };
 
 export default Page;
