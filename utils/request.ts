@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN_KEY } from "@/contants";
+import { message } from "antd";
 import axios, {
   AxiosHeaders,
   type AxiosError,
@@ -58,13 +59,6 @@ axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig & Req
 
   return config;
 });
-/**
- * AxiosResponse<{
-  success,
-  msg,
-  data: { access_token }
-}>
- */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     console.warn("Response:", response);
@@ -73,12 +67,16 @@ axiosInstance.interceptors.response.use(
   (error: AxiosError<RequestErrorData>) => {
     const status = error.response?.status;
     const data = error.response?.data;
-    const message = data?.message ?? data?.msg ?? error.message ?? "Request failed";
+    const msg = data?.message ?? data?.message ?? error.message ?? "Request failed";
+    // 统一错误提示（可选：根据 status 决定是否提示，如 401 通常不弹提示，直接跳转登录）
+    if (status !== 401) {
+      message.error(msg);
+    }
     if (status === 401) {
+      message.error(msg);
       clearAccessToken();
     }
-
-    return Promise.reject(new RequestError(message, { status, data }));
+    return Promise.reject(new RequestError(msg, { status, data }));
   },
 );
 
