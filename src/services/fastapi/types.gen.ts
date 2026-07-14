@@ -49,6 +49,10 @@ export type ChatRequest = {
  */
 export type FileOut = {
     /**
+     * Url
+     */
+    url: string;
+    /**
      * Filename
      */
     filename: string;
@@ -103,9 +107,9 @@ export type LoginModel = {
  */
 export type PageResultFileOut = {
     /**
-     * Data
+     * Records
      */
-    data: Array<unknown>;
+    records: Array<unknown>;
     /**
      * Total
      */
@@ -129,9 +133,9 @@ export type PageResultFileOut = {
  */
 export type PageResultUsersReo = {
     /**
-     * Data
+     * Records
      */
-    data: Array<UsersReo>;
+    records: Array<UsersReo>;
     /**
      * Total
      */
@@ -1003,6 +1007,40 @@ export type UploadFilesResponses = {
 };
 
 export type UploadFilesResponse = UploadFilesResponses[keyof UploadFilesResponses];
+
+export type GetFileByIdData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * File Id
+         */
+        file_id: string;
+    };
+    url: '/files/getFileById';
+};
+
+export type GetFileByIdErrors = {
+    /**
+     * Not found
+     */
+    404: unknown;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetFileByIdError = GetFileByIdErrors[keyof GetFileByIdErrors];
+
+export type GetFileByIdResponses = {
+    /**
+     * Successful Response
+     */
+    200: ResponseModelFileOut;
+};
+
+export type GetFileByIdResponse = GetFileByIdResponses[keyof GetFileByIdResponses];
 
 export type FileListData = {
     body: AppModelsFilesQueryRequest;

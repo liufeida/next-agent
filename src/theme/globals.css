@@ -21,8 +21,14 @@
   }
 }
 
+html {}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--fontInter);
+
+  .ant-layout {
+    height: 100dvh;
+  }
 }

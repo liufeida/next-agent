@@ -1,27 +1,45 @@
 "use client";
 import loginBg2 from "@/assets/images/loginBg2.png";
 import { ACCESS_TOKEN_KEY } from "@/contants";
-import { getCurrentUser, login, type LoginParams } from "@/services";
+import { getFileById, login, type LoginParams } from "@/services";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
-import { FC } from "react";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
 
 const Page: FC = () => {
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+  //   if (token) {
+  //     router.replace("/home");
+  //   }
+  // }, [router]);
+
   const onFinish = async (values: LoginParams) => {
-    const res = await login({ body: values });
-    console.warn("res: ", res.data?.access_token);
-    localStorage.setItem(ACCESS_TOKEN_KEY, res.data?.access_token ?? "");
+    setSubmitting(true);
+    try {
+      const res = await login({ body: values });
+      const accessToken = res?.data?.access_token ?? "";
+      if (!res?.success || !accessToken) {
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        return;
+      }
+
+      localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+      await getFileById({ query: { file_id: "df541e5dfd964c56bbe9324f4fed8e04" } });
+      router.replace("/home");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleClick = async () => {
-    await getCurrentUser();
-  };
-
-  // bg-[url(../assets/images/loginBg2.png)] bg-contain bg-no-repeat bg-center
   return (
     <div className='flex h-screen'>
-      <div className={`flex w-5/5 items-end justify-center max-xl:w-7/5 max-lg:w-5/5 max-md:w-0`}>
+      <div className='flex w-5/5 items-end justify-center max-xl:w-7/5 max-lg:w-5/5 max-md:w-0'>
         <Image
           className='w-sm cursor-pointer blur-sm grayscale transition duration-500 ease-in hover:filter-none max-[1000px]:filter-none'
           src={loginBg2}
@@ -71,21 +89,13 @@ const Page: FC = () => {
                 <Form.Item name='remember' valuePropName='checked' noStyle>
                   <Checkbox>Remember me</Checkbox>
                 </Form.Item>
-                <a href=''>Forgot password</a>
               </Flex>
             </Form.Item>
 
             <Form.Item>
-              <Button block type='primary' htmlType='submit'>
+              <Button block type='primary' htmlType='submit' loading={submitting}>
                 Log in
               </Button>
-              or <a href=''>Register now!</a>
-            </Form.Item>
-            <Form.Item>
-              <Button block type='primary' onClick={() => handleClick()}>
-                Log in
-              </Button>
-              or <a href=''>Register now!</a>
             </Form.Item>
           </Form>
         </div>

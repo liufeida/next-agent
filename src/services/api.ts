@@ -7,11 +7,7 @@ type ApiEnvelope<T> = {
   data?: T | null;
 };
 
-type UnwrapEnvelope<T> = T extends ApiEnvelope<infer U> ? NonNullable<U> : T;
-
-type UnwrapResponse<T> = T extends { data: infer D }
-  ? Omit<T, "data"> & { data: UnwrapEnvelope<D> }
-  : T;
+type UnwrapEnvelope<T> = T extends ApiEnvelope<infer U> ? ApiEnvelope<U> : T;
 
 type AsyncMethod = (...args: never[]) => Promise<unknown>;
 
@@ -25,27 +21,31 @@ const isApiEnvelope = (value: unknown): value is ApiEnvelope<unknown> => {
   return "data" in payload && ("code" in payload || "message" in payload || "success" in payload);
 };
 
-const unwrapResponse = <T>(response: T): UnwrapResponse<T> => {
+const unwrapResponse = <T>(response: T): UnwrapEnvelope<T extends { data: infer D } ? D : T> => {
   if (!response || typeof response !== "object" || !("data" in response)) {
-    return response as UnwrapResponse<T>;
+    return response as UnwrapEnvelope<T extends { data: infer D } ? D : T>;
   }
 
   const payload = response.data;
   if (!isApiEnvelope(payload)) {
-    return response as UnwrapResponse<T>;
+    return payload as UnwrapEnvelope<T extends { data: infer D } ? D : T>;
   }
 
   return {
-    ...response,
     data: payload.data ?? null,
-  } as UnwrapResponse<T>;
+    code: payload.code ?? null,
+    message: payload.message ?? null,
+    success: payload.success ?? null,
+  } as UnwrapEnvelope<T extends { data: infer D } ? D : T>;
 };
 
 const wrapMethod = <T extends AsyncMethod>(method: T) => {
   return (async (...args: Parameters<T>) => {
     const response = await method(...args);
     return unwrapResponse(response);
-  }) as (...args: Parameters<T>) => Promise<UnwrapResponse<Awaited<ReturnType<T>>>>;
+  }) as (
+    ...args: Parameters<T>
+  ) => Promise<UnwrapEnvelope<Awaited<ReturnType<T>> extends { data: infer D } ? D : Awaited<ReturnType<T>>>>;
 };
 
 export const login = wrapMethod(fastapi.login);
@@ -64,6 +64,7 @@ export const downloadFile = wrapMethod(fastapi.downloadFile);
 export const uploadFile = wrapMethod(fastapi.uploadFile);
 export const uploadFiles = wrapMethod(fastapi.uploadFiles);
 export const fileList = wrapMethod(fastapi.fileList);
+export const getFileById = wrapMethod(fastapi.getFileById);
 
-export { client } from "./fastapi/client.gen";
 export type * from "./fastapi";
+export { client } from "./fastapi/client.gen";

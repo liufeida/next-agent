@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteUserByIdData, DeleteUserByIdErrors, DeleteUserByIdResponses, DownloadFileData, DownloadFileErrors, DownloadFileResponses, FileListData, FileListErrors, FileListResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetUserByIdData, GetUserByIdErrors, GetUserByIdResponses, LoginData, LoginErrors, LoginResponses, OllamaChatData, OllamaChatErrors, OllamaChatResponses, OllamaChatStreamData, OllamaChatStreamErrors, OllamaChatStreamResponses, OllamaHealthCheckData, OllamaHealthCheckErrors, OllamaHealthCheckResponses, PostCreateUserData, PostCreateUserErrors, PostCreateUserResponses, PostUsersListData, PostUsersListErrors, PostUsersListResponses, PreviewFileData, PreviewFileErrors, PreviewFileResponses, RefreshData, RefreshErrors, RefreshResponses, UpdateUserInfosData, UpdateUserInfosErrors, UpdateUserInfosResponses, UploadFileData, UploadFileErrors, UploadFileResponses, UploadFilesData, UploadFilesErrors, UploadFilesResponses } from './types.gen';
+import type { DeleteUserByIdData, DeleteUserByIdErrors, DeleteUserByIdResponses, DownloadFileData, DownloadFileErrors, DownloadFileResponses, FileListData, FileListErrors, FileListResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetFileByIdData, GetFileByIdErrors, GetFileByIdResponses, GetUserByIdData, GetUserByIdErrors, GetUserByIdResponses, LoginData, LoginErrors, LoginResponses, OllamaChatData, OllamaChatErrors, OllamaChatResponses, OllamaChatStreamData, OllamaChatStreamErrors, OllamaChatStreamResponses, OllamaHealthCheckData, OllamaHealthCheckErrors, OllamaHealthCheckResponses, PostCreateUserData, PostCreateUserErrors, PostCreateUserResponses, PostUsersListData, PostUsersListErrors, PostUsersListResponses, PreviewFileData, PreviewFileErrors, PreviewFileResponses, RefreshData, RefreshErrors, RefreshResponses, UpdateUserInfosData, UpdateUserInfosErrors, UpdateUserInfosResponses, UploadFileData, UploadFileErrors, UploadFileResponses, UploadFilesData, UploadFilesErrors, UploadFilesResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -214,6 +214,18 @@ export const uploadFiles = <ThrowOnError extends boolean = false>(options: Optio
         'Content-Type': null,
         ...options.headers
     }
+});
+
+/**
+ * 根据 id 查找文件
+ *
+ * 根据 id 查找一个文件元数据记录
+ */
+export const getFileById = <ThrowOnError extends boolean = false>(options: Options<GetFileByIdData, ThrowOnError>) => (options.client ?? client).get<GetFileByIdResponses, GetFileByIdErrors, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/files/getFileById',
+    ...options
 });
 
 /**
