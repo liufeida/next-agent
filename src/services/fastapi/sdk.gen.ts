@@ -73,7 +73,7 @@ export const ollamaChatStream = <ThrowOnError extends boolean = false>(options: 
 /**
  * 刷新获取 access_token
  */
-export const refresh = <ThrowOnError extends boolean = false>(options: Options<RefreshData, ThrowOnError>) => (options.client ?? client).post<RefreshResponses, RefreshErrors, ThrowOnError>({
+export const refresh = <ThrowOnError extends boolean = false>(options?: Options<RefreshData, ThrowOnError>) => (options?.client ?? client).post<RefreshResponses, RefreshErrors, ThrowOnError>({
     responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/refresh',

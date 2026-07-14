@@ -1,12 +1,13 @@
 "use client";
 import loginBg2 from "@/assets/images/loginBg2.png";
-import { ACCESS_TOKEN_KEY } from "@/contants";
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/contants";
 import { api, type LoginParams } from "@/services";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
+import { setAccessToken, setRefreshToken } from "../../../utils/request";
 
 const Page: FC = () => {
   const router = useRouter();
@@ -24,12 +25,17 @@ const Page: FC = () => {
     try {
       const res = await api.login({ body: values });
       const accessToken = res?.data?.access_token ?? "";
+      const refreshToken = res?.data?.refresh_token ?? "";
       if (!res?.success || !accessToken) {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_KEY);
         return;
       }
 
-      localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+      setAccessToken(accessToken);
+      if (refreshToken) {
+        setRefreshToken(refreshToken);
+      }
       router.replace("/home");
     } finally {
       setSubmitting(false);

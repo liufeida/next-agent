@@ -39,26 +39,57 @@ const unwrapResponse = <T>(response: T): UnwrapEnvelope<T extends { data: infer 
   } as UnwrapEnvelope<T extends { data: infer D } ? D : T>;
 };
 
-const wrapMethod = <T extends AsyncMethod>(method: T) => {
+// 请求去重缓存
+const pendingRequests = new Map<string, Promise<unknown>>();
+
+const generateKey = (methodName: string, args: unknown[]): string => {
+  try {
+    return `${methodName}::${JSON.stringify(args)}`;
+  } catch {
+    return `${methodName}::${Date.now()}`;
+  }
+};
+
+type WrappedMethod<T extends AsyncMethod> = (
+  ...args: Parameters<T>
+) => Promise<UnwrapEnvelope<Awaited<ReturnType<T>> extends { data: infer D } ? D : Awaited<ReturnType<T>>>>;
+
+const wrapMethod = <T extends AsyncMethod>(methodName: string, method: T): WrappedMethod<T> => {
   return (async (...args: Parameters<T>) => {
-    const response = await method(...args);
-    return unwrapResponse(response);
-  }) as (
-    ...args: Parameters<T>
-  ) => Promise<UnwrapEnvelope<Awaited<ReturnType<T>> extends { data: infer D } ? D : Awaited<ReturnType<T>>>>;
+    const key = generateKey(methodName, args);
+
+    // 如果有正在进行的相同请求，直接返回
+    if (pendingRequests.has(key)) {
+      return pendingRequests.get(key) as Promise<
+        UnwrapEnvelope<Awaited<ReturnType<T>> extends { data: infer D } ? D : Awaited<ReturnType<T>>>
+      >;
+    }
+
+    const promise = (async () => {
+      const response = await method(...args);
+      pendingRequests.delete(key);
+      return unwrapResponse(response);
+    })();
+
+    pendingRequests.set(key, promise);
+
+    return promise;
+  }) as WrappedMethod<T>;
 };
 
 type ApiModule = Record<string, unknown>;
 
+type ApiType = {
+  [K in keyof typeof fastapi]: (typeof fastapi)[K] extends AsyncMethod
+    ? WrappedMethod<(typeof fastapi)[K]>
+    : (typeof fastapi)[K];
+};
+
 const api = Object.fromEntries(
   Object.entries(fastapi as ApiModule)
     .filter(([, value]) => typeof value === "function")
-    .map(([key, value]) => [key, wrapMethod(value as AsyncMethod)]),
-) as {
-  [K in keyof typeof fastapi]: (typeof fastapi)[K] extends AsyncMethod
-    ? ReturnType<typeof wrapMethod<(typeof fastapi)[K]>>
-    : (typeof fastapi)[K];
-};
+    .map(([key, value]) => [key, wrapMethod(key, value as AsyncMethod)]),
+) as ApiType;
 
 export default api;
 

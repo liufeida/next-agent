@@ -670,12 +670,7 @@ export type OllamaChatStreamResponses = {
 export type RefreshData = {
     body?: never;
     path?: never;
-    query: {
-        /**
-         * Refresh Token
-         */
-        refresh_token: string;
-    };
+    query?: never;
     url: '/users/refresh';
 };
 
@@ -684,13 +679,7 @@ export type RefreshErrors = {
      * Not found
      */
     404: unknown;
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
 };
-
-export type RefreshError = RefreshErrors[keyof RefreshErrors];
 
 export type RefreshResponses = {
     /**

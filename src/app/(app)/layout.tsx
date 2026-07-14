@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { ACCESS_TOKEN_KEY } from "@/contants";
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/contants";
 import {
   LogoutOutlined,
   MenuFoldOutlined,
@@ -33,6 +33,7 @@ export default function AppLayout({
       label: "退出登录",
       onClick: () => {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_KEY);
         router.replace("/login");
       },
     },
