@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import { Avatar, Button, Layout, Menu, theme } from "antd";
+import { ACCESS_TOKEN_KEY } from "@/contants";
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Dropdown, Layout, Menu, theme } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -18,6 +25,18 @@ export default function AppLayout({
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const dropdownItems = [
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: "退出登录",
+      onClick: () => {
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        router.replace("/login");
+      },
+    },
+  ];
 
   const siderStyle: React.CSSProperties = {
     overflow: "auto",
@@ -37,11 +56,14 @@ export default function AppLayout({
       >
         <div></div>
         <div className='pr-4'>
-          <Avatar
-            size='large'
-            icon={<UserOutlined />}
-            src='https://fastapi.agentcore.art/api/uploads/20260417/185d081fe03262b8ee964bc7c986f0b5_988ae7a310a84676853f9d91223017dd.png'
-          />
+          <Dropdown menu={{ items: dropdownItems }} trigger={["click"]} placement='bottomRight'>
+            <Avatar
+              size='large'
+              icon={<UserOutlined />}
+              src='https://fastapi.agentcore.art/api/uploads/20260417/185d081fe03262b8ee964bc7c986f0b5_988ae7a310a84676853f9d91223017dd.png'
+              className='cursor-pointer'
+            />
+          </Dropdown>
         </div>
       </Header>
       <Layout hasSider>

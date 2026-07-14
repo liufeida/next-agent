@@ -1,7 +1,7 @@
 "use client";
 import loginBg2 from "@/assets/images/loginBg2.png";
 import { ACCESS_TOKEN_KEY } from "@/contants";
-import { getFileById, login, type LoginParams } from "@/services";
+import { login, type LoginParams } from "@/services";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
@@ -30,7 +30,6 @@ const Page: FC = () => {
       }
 
       localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-      await getFileById({ query: { file_id: "df541e5dfd964c56bbe9324f4fed8e04" } });
       router.replace("/home");
     } finally {
       setSubmitting(false);
