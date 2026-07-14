@@ -1,3 +1,4 @@
 export * from "../../utils/request";
-export * from "./api";
+export { default as api } from "./api";
 export * from "./auth";
+export type * from "./api";

@@ -48,23 +48,19 @@ const wrapMethod = <T extends AsyncMethod>(method: T) => {
   ) => Promise<UnwrapEnvelope<Awaited<ReturnType<T>> extends { data: infer D } ? D : Awaited<ReturnType<T>>>>;
 };
 
-export const login = wrapMethod(fastapi.login);
-export const ollamaHealthCheck = wrapMethod(fastapi.ollamaHealthCheck);
-export const ollamaChat = wrapMethod(fastapi.ollamaChat);
-export const ollamaChatStream = wrapMethod(fastapi.ollamaChatStream);
-export const refresh = wrapMethod(fastapi.refresh);
-export const getCurrentUser = wrapMethod(fastapi.getCurrentUser);
-export const getUserById = wrapMethod(fastapi.getUserById);
-export const postUsersList = wrapMethod(fastapi.postUsersList);
-export const postCreateUser = wrapMethod(fastapi.postCreateUser);
-export const deleteUserById = wrapMethod(fastapi.deleteUserById);
-export const updateUserInfos = wrapMethod(fastapi.updateUserInfos);
-export const previewFile = wrapMethod(fastapi.previewFile);
-export const downloadFile = wrapMethod(fastapi.downloadFile);
-export const uploadFile = wrapMethod(fastapi.uploadFile);
-export const uploadFiles = wrapMethod(fastapi.uploadFiles);
-export const fileList = wrapMethod(fastapi.fileList);
-export const getFileById = wrapMethod(fastapi.getFileById);
+type ApiModule = Record<string, unknown>;
+
+const api = Object.fromEntries(
+  Object.entries(fastapi as ApiModule)
+    .filter(([, value]) => typeof value === "function")
+    .map(([key, value]) => [key, wrapMethod(value as AsyncMethod)]),
+) as {
+  [K in keyof typeof fastapi]: (typeof fastapi)[K] extends AsyncMethod
+    ? ReturnType<typeof wrapMethod<(typeof fastapi)[K]>>
+    : (typeof fastapi)[K];
+};
+
+export default api;
 
 export type * from "./fastapi";
 export { client } from "./fastapi/client.gen";

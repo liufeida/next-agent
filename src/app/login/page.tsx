@@ -1,7 +1,7 @@
 "use client";
 import loginBg2 from "@/assets/images/loginBg2.png";
 import { ACCESS_TOKEN_KEY } from "@/contants";
-import { login, type LoginParams } from "@/services";
+import { api, type LoginParams } from "@/services";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
@@ -22,7 +22,7 @@ const Page: FC = () => {
   const onFinish = async (values: LoginParams) => {
     setSubmitting(true);
     try {
-      const res = await login({ body: values });
+      const res = await api.login({ body: values });
       const accessToken = res?.data?.access_token ?? "";
       if (!res?.success || !accessToken) {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
