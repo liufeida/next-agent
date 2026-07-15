@@ -1,0 +1,124 @@
+.custom-pro-table.hairlines {
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .img {
+      flex-shrink: 0;
+      width: 17px;
+      height: 21px;
+      margin-top: -1px !important;
+    }
+
+    span {
+      /* // 加了icon后再放开 */
+      /* // padding-left: 10px; */
+      font-size: 20px;
+      color: #111;
+      font-weight: bold;
+    }
+  }
+
+  .ant-pro-card-border {
+    /* border: none; */
+  }
+
+  .ant-table-wrapper .ant-table-pagination.ant-pagination {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* //选中行的颜色 */
+  .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected>.ant-table-cell {
+    background: #ffffff;
+  }
+
+  /* //选中行的颜色 */
+  .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected>.ant-table-cell-row-hover {
+    background: rgb(207, 226, 220);
+  }
+
+  /* // 搜索表单 */
+  .ant-form-item-label>label {
+    /* // font-size: 14px; */
+    color: #666;
+  }
+
+  /* // 表格头这一行的颜色 */
+  /* // .ant-table-thead > tr > th {
+  //   background-color: #c7f1ed;
+  // } */
+
+  /* // 分页组件 */
+  .ant-table-pagination-right {
+    justify-content: center;
+  }
+
+  .ant-pagination.ant-pagination-simple {
+    .ant-pagination-prev {
+      margin-right: 19px;
+    }
+
+    .ant-pagination-next {
+      margin-left: 19px;
+    }
+
+    .ant-pagination-item-link,
+    .ant-pagination-item-link:hover,
+    .ant-pagination-item-link:active {
+      background-color: #7cb305;
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .ant-pagination-disabled .ant-pagination-item-link,
+    .ant-pagination-disabled:hover .ant-pagination-item-link,
+    .ant-pagination-disabled .ant-pagination-item-link:hover,
+    .ant-pagination-disabled .ant-pagination-item-link:active {
+      background-color: #f4ffb8;
+      border-color: transparent;
+      color: #e6e6e8;
+      cursor: not-allowed;
+    }
+  }
+
+  .action-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 77, 79, 0.08);
+    color: #ff4d4f;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: rgba(255, 77, 79, 0.16);
+      box-shadow: 0 2px 8px rgba(255, 77, 79, 0.15);
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+
+    &.disabled {
+      background: rgba(191, 198, 208, 0.08);
+      color: #bfc4d0;
+      cursor: not-allowed;
+
+      &:hover {
+        background: rgba(191, 198, 208, 0.08);
+        box-shadow: none;
+      }
+
+      &:active {
+        transform: none;
+      }
+    }
+  }
+}

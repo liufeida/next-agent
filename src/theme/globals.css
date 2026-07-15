@@ -7,6 +7,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ==================== 变量定义 ==================== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -21,14 +22,177 @@
   }
 }
 
+/* ==================== 全局样式 ==================== */
 html {}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--fontInter);
+  font-family: Arial, sans-serif;
 
   .ant-layout {
     height: 100dvh;
+
+    .ant-menu-light.ant-menu-root.ant-menu-inline {
+      border-inline-end: none;
+    }
+
+    .ant-pro-card .ant-pro-card-body {
+      padding-inline: 20px;
+      padding-block: 12px;
+    }
+
+    .ant-layout-content {
+      margin: 10px 8px;
+      padding: 12px !important;
+      min-height: 280px;
+      background: rgb(255, 255, 255);
+      border-radius: 8px;
+      overflow: auto;
+    }
+  }
+}
+
+/* ==================== 滚动条样式 ==================== */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #f1f1f1;
+}
+
+/* ==================== 加载页面 ==================== */
+.loading-page-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==================== Ant Design Pro 覆盖 ==================== */
+
+/* Layout 背景色 */
+.ant-pro-layout {
+  background: #f9f9f9 !important;
+}
+
+/* Header 配置 */
+.ant-layout-header {
+  height: 50px !important;
+  line-height: 50px !important;
+  background: #fff !important;
+}
+
+/* Sider 菜单配置 */
+.ant-pro-sider {
+  .ant-menu {
+
+    .ant-menu-item,
+    .ant-menu-submenu-title {
+      height: 48px !important;
+      line-height: 48px !important;
+      padding-inline: 0 !important;
+      padding-block: 12px !important;
+    }
+  }
+}
+
+/* 菜单背景色 */
+.ant-pro-sider-menu {
+  background: #1f2937 !important;
+}
+
+/* 菜单文本色 - 未选中 */
+.ant-pro-sider-menu .ant-menu-item,
+.ant-pro-sider-menu .ant-menu-submenu-title {
+  color: #fff !important;
+}
+
+/* 菜单项选中背景色 */
+.ant-pro-sider-menu .ant-menu-item-selected {
+  background: #4c545f !important;
+  color: #fff !important;
+}
+
+/* 菜单项 hover */
+.ant-pro-sider-menu .ant-menu-item:hover,
+.ant-pro-sider-menu .ant-menu-submenu-title:hover {
+  color: #14d4c9 !important;
+  background: #404e4e !important;
+}
+
+/* PageContainer 配置 */
+.ant-pro-page-container {
+  .ant-pro-page-container-children-container {
+    padding-block-start: 12px !important;
+    padding-block-end: 12px !important;
+    padding-inline: 12px !important;
+    background: transparent !important;
+  }
+}
+
+/* ==================== Ant Design 表单覆盖 ==================== */
+.ant-form-item {
+  .ant-form-item-control {
+
+    .ant-radio-wrapper .ant-radio-disabled .ant-radio-inner::after {
+      background-color: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    .ant-checkbox-disabled .ant-checkbox-inner:after {
+      border-color: #000 !important;
+    }
+
+    .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      color: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+      background: none;
+    }
+
+    .ant-select-selection-placeholder {
+      line-height: normal;
+    }
+
+    .ant-input-disabled,
+    .ant-input[disabled] {
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .ant-input-number {
+      width: auto;
+    }
+
+    .ant-input-number-disabled,
+    .ant-input-number[disabled] {
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .ant-picker .ant-picker-input>input-disabled,
+    .ant-picker .ant-picker-input>input[disabled] {
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .ant-radio-wrapper-disabled {
+      color: rgba(0, 0, 0, 0.7);
+    }
   }
 }

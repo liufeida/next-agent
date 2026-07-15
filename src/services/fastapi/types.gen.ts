@@ -356,6 +356,10 @@ export type UsersLoginReo = {
      */
     updated_at: string | null;
     /**
+     * Avatar Url
+     */
+    avatar_url?: string | null;
+    /**
      * Access Token
      */
     access_token: string;
@@ -415,6 +419,10 @@ export type UsersReo = {
      * Updated At
      */
     updated_at: string | null;
+    /**
+     * Avatar Url
+     */
+    avatar_url?: string | null;
 };
 
 /**

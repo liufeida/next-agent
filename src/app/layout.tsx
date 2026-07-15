@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
+import { themeConfig } from "@/theme/antd-theme";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { App, ConfigProvider } from "antd";
 import type { Metadata } from "next";
 import "../theme/globals.css";
 
@@ -23,8 +25,11 @@ export default function RootLayout({
         <link href='https://fonts.googleapis.com/css2?family=Inter@400;500;700&display=swap' rel='stylesheet' />
       </head>
       <body>
-        {/* <Link href='/home'>Home</Link> */}
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <App>
+            <ConfigProvider theme={themeConfig}>{children}</ConfigProvider>
+          </App>
+        </AntdRegistry>
       </body>
     </html>
   );

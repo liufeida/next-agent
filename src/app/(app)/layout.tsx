@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
+import turtleImage from "@/assets/images/image.png";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/contants";
 import {
   LogoutOutlined,
@@ -10,6 +11,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Layout, Menu, theme } from "antd";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -20,7 +22,7 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-  const [pathname, setPathname] = useState(typeof window !== "undefined" ? window.location.pathname : "");
+  const [pathname, setPathname] = useState(typeof window !== "undefined" ? window.location.pathname || "/home" : "");
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -55,8 +57,8 @@ export default function AppLayout({
         className='box-border flex items-center justify-between border-b border-[#e9e9e9]'
         style={{ padding: 0, background: colorBgContainer }}
       >
-        <div></div>
-        <div className='pr-4'>
+        <Image src={turtleImage} alt='乌龟' width={0} height={0} className='h-full w-auto' />
+        <div className='flex flex-row items-center pr-4'>
           <Dropdown menu={{ items: dropdownItems }} trigger={["click"]} placement='bottomRight'>
             <Avatar
               size='large'
