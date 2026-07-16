@@ -1,45 +1,20 @@
 "use client";
 import loginBg2 from "@/assets/images/loginBg2.png";
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/contants";
-import { api, type LoginParams } from "@/services";
+import type { LoginModel } from "@/services/fastapi";
+import { useLogin } from "@/stores";
 import { LockOutlined, OpenAIOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FC, useState } from "react";
-import { setAccessToken, setRefreshToken } from "../../../utils/request";
+import { FC } from "react";
 
 const Page: FC = () => {
   const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
+  const loginMutation = useLogin();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  //   if (token) {
-  //     router.replace("/home");
-  //   }
-  // }, [router]);
-
-  const onFinish = async (values: LoginParams) => {
-    setSubmitting(true);
-    try {
-      const res = await api.login({ body: values });
-      const accessToken = res?.data?.access_token ?? "";
-      const refreshToken = res?.data?.refresh_token ?? "";
-      if (!res?.success || !accessToken) {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
-        localStorage.removeItem(REFRESH_TOKEN_KEY);
-        return;
-      }
-
-      setAccessToken(accessToken);
-      if (refreshToken) {
-        setRefreshToken(refreshToken);
-      }
-      router.replace("/home");
-    } finally {
-      setSubmitting(false);
-    }
+  const onFinish = async (values: LoginModel) => {
+    await loginMutation.mutateAsync(values);
+    router.replace("/home");
   };
 
   return (
@@ -98,7 +73,7 @@ const Page: FC = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button block type='primary' htmlType='submit' loading={submitting}>
+              <Button block type='primary' htmlType='submit' loading={loginMutation.isPending}>
                 Log in
               </Button>
             </Form.Item>

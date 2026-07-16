@@ -1,7 +1,14 @@
-import { CustomProTable } from "@/components/CustomProTable";
-import { PageContainer } from "@ant-design/pro-components";
+import dynamic from "next/dynamic";
 import { FC } from "react";
 import { useTable } from "./useTable";
+
+const PageContainer = dynamic(() => import("@ant-design/pro-components").then(mod => mod.PageContainer), {
+  ssr: false,
+});
+
+const CustomProTable = dynamic(() => import("@/components/CustomProTable").then(mod => mod.CustomProTable), {
+  ssr: false,
+});
 
 const UserManageList: FC = () => {
   const { EditModal, AddModal, ...listTableProps } = useTable();

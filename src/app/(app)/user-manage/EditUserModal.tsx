@@ -50,10 +50,6 @@ export const EditUserModal = ({ open, userId, onClose, onSuccess }: EditUserModa
         .finally(() => {
           setFetching(false);
         });
-    } else if (!open) {
-      form.resetFields();
-      setAvatarUrl(undefined);
-      setAvatarId(undefined);
     }
   }, [open, userId]);
 
@@ -100,6 +96,7 @@ export const EditUserModal = ({ open, userId, onClose, onSuccess }: EditUserModa
       confirmLoading={loading}
       width={680}
       destroyOnHidden
+      forceRender
     >
       <Spin spinning={fetching}>
         <Form form={form} layout='vertical'>
@@ -123,13 +120,13 @@ export const EditUserModal = ({ open, userId, onClose, onSuccess }: EditUserModa
 
           <Row gutter={24} style={{ marginTop: 12 }}>
             <Col span={12}>
-              <Form.Item name='username' label='用户名' rules={[{ required: true, message: "请输入用户名" }]}>
-                <Input placeholder='请输入用户名' />
+              <Form.Item name='username' label='账号' rules={[{ required: true, message: "请输入账号" }]}>
+                <Input placeholder='请输入账号' />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name='full_name' label='姓名'>
-                <Input placeholder='请输入姓名' />
+              <Form.Item name='full_name' label='用户姓名'>
+                <Input placeholder='请输入用户姓名' />
               </Form.Item>
             </Col>
           </Row>
@@ -157,9 +154,9 @@ export const EditUserModal = ({ open, userId, onClose, onSuccess }: EditUserModa
             <Switch checkedChildren='禁用' unCheckedChildren='启用' />
           </Form.Item>
 
-          {/* 密码修改 - 留空则不修改 */}
-          <Form.Item name='password' label='新密码（留空则不修改）' style={{ marginTop: 12 }}>
-            <Input.Password placeholder='请输入新密码' autoComplete='new-password' />
+          {/* 账号账号密码修改 - 留空则不修改 */}
+          <Form.Item name='password' label='账号密码（留空则不修改）' style={{ marginTop: 12 }}>
+            <Input.Password placeholder='请输入账号密码' autoComplete='new-password' />
           </Form.Item>
         </Form>
       </Spin>

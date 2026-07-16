@@ -33,8 +33,11 @@ body {
   .ant-layout {
     height: 100dvh;
 
-    .ant-menu-light.ant-menu-root.ant-menu-inline {
-      border-inline-end: none;
+    .ant-menu-light.ant-menu-root.ant-menu-inline,
+    .ant-menu-light>.ant-menu.ant-menu-root.ant-menu-inline,
+    .ant-menu-light.ant-menu-root.ant-menu-vertical,
+    .ant-menu-light>.ant-menu.ant-menu-root.ant-menu-vertical {
+      border-inline-end: none !important;
     }
 
     .ant-pro-card .ant-pro-card-body {
@@ -95,6 +98,7 @@ body {
 /* Header 配置 */
 .ant-layout-header {
   height: 50px !important;
+  padding: 6 !important;
   line-height: 50px !important;
   background: #fff !important;
 }

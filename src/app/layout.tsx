@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-page-custom-font */
+import { ReactQueryProvider } from "@/stores";
 import { themeConfig } from "@/theme/antd-theme";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { App, ConfigProvider } from "antd";
@@ -25,11 +26,13 @@ export default function RootLayout({
         <link href='https://fonts.googleapis.com/css2?family=Inter@400;500;700&display=swap' rel='stylesheet' />
       </head>
       <body>
-        <AntdRegistry>
-          <App>
-            <ConfigProvider theme={themeConfig}>{children}</ConfigProvider>
-          </App>
-        </AntdRegistry>
+        <ReactQueryProvider>
+          <AntdRegistry>
+            <App>
+              <ConfigProvider theme={themeConfig}>{children}</ConfigProvider>
+            </App>
+          </AntdRegistry>
+        </ReactQueryProvider>
       </body>
     </html>
   );

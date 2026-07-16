@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import turtleImage from "@/assets/images/image.png";
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/contants";
+import turtleImage from "@/assets/images/logo.png";
+import { useAuthStore, useLogout } from "@/stores";
 import {
   LogoutOutlined,
   MenuFoldOutlined,
@@ -10,9 +10,9 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Dropdown, Layout, Menu, theme } from "antd";
+import { App, Avatar, Button, Dropdown, Layout, Menu, theme } from "antd";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const { Header, Sider, Content } = Layout;
@@ -21,59 +21,59 @@ export default function AppLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { message } = App.useApp();
   const router = useRouter();
-  const [pathname, setPathname] = useState(typeof window !== "undefined" ? window.location.pathname || "/home" : "");
+  const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const logoutMutation = useLogout();
+  const userInfo = useAuthStore((state) => state.userInfo);
 
   const dropdownItems = [
     {
       key: "logout",
       icon: <LogoutOutlined />,
       label: "退出登录",
-      onClick: () => {
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
-        localStorage.removeItem(REFRESH_TOKEN_KEY);
-        router.replace("/login");
+      onClick: async () => {
+        try {
+          await logoutMutation.mutateAsync();
+          router.replace("/login");
+        } catch {
+          message.error("退出失败，请重试");
+        }
       },
     },
   ];
 
-  const siderStyle: React.CSSProperties = {
-    overflow: "auto",
-    // height: "100vh",
-    position: "sticky",
-    insetInlineStart: 0,
-    top: 0,
-    scrollbarWidth: "thin",
-    scrollbarGutter: "stable",
-  };
-
   return (
-    <Layout>
+    <Layout className='flex h-screen flex-col'>
       <Header
-        className='box-border flex items-center justify-between border-b border-[#e9e9e9]'
-        style={{ padding: 0, background: colorBgContainer }}
+        className='flex h-14 items-center justify-between border-b border-gray-200 px-0'
+        style={{ background: colorBgContainer }}
       >
-        <Image src={turtleImage} alt='乌龟' width={0} height={0} className='h-full w-auto' />
-        <div className='flex flex-row items-center pr-4'>
+        <div className='flex items-center gap-3 pl-1'>
+          <Image src={turtleImage} alt='Logo' width={32} height={32} className='h-8 w-auto' priority loading='eager' />
+          <span className='text-lg font-semibold text-gray-800'>老巨头</span>
+        </div>
+        <div className='flex items-center pr-4'>
           <Dropdown menu={{ items: dropdownItems }} trigger={["click"]} placement='bottomRight'>
-            <Avatar
-              size='large'
-              icon={<UserOutlined />}
-              src='https://fastapi.agentcore.art/api/uploads/20260417/185d081fe03262b8ee964bc7c986f0b5_988ae7a310a84676853f9d91223017dd.png'
-              className='cursor-pointer'
-            />
+            <Avatar size='large' icon={<UserOutlined />} src={userInfo?.avatar_url} className='cursor-pointer' />
           </Dropdown>
         </div>
       </Header>
-      <Layout hasSider>
-        <Sider theme='light' trigger={null} collapsible collapsed={collapsed} style={siderStyle}>
-          <div className='sticky bottom-[-0.5px] border-t border-gray-200 bg-gray-100 text-center'>
+      <Layout className='flex flex-1 overflow-hidden'>
+        <Sider
+          theme='light'
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          className='overflow-auto border-r border-gray-200'
+        >
+          <div className='sticky bottom-0 border-t border-gray-200 bg-gray-50 text-center'>
             <Button
-              className='h-[42px] w-full'
+              className='h-11 w-full'
               block
               type='text'
               size='large'
@@ -102,18 +102,7 @@ export default function AppLayout({
             ]}
           />
         </Sider>
-        <Content
-          style={{
-            margin: "10px 8px",
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-            overflow: "auto",
-          }}
-        >
-          {children}
-        </Content>
+        <Content className='m-2.5 overflow-auto rounded-lg bg-white p-6'>{children}</Content>
       </Layout>
     </Layout>
   );

@@ -1,8 +1,9 @@
 import { api } from "@/services";
 import type { UsersReo } from "@/services/fastapi";
-import { PlusOutlined, UserOutlined } from "@ant-design/icons";
+import { CopyOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { ActionType, ProColumns } from "@ant-design/pro-components";
 import { App, Avatar, Button } from "antd";
+import dayjs from "dayjs";
 import { useRef, useState } from "react";
 import { AddUserModal } from "./AddUserModal";
 import { EditUserModal } from "./EditUserModal";
@@ -61,13 +62,13 @@ export const useTable = () => {
         record.avatar_url ? <Avatar size={64} src={record.avatar_url} /> : <Avatar size={64} icon={<UserOutlined />} />,
     },
     {
-      title: "用户名",
+      title: "账号",
       dataIndex: "username",
       width: 140,
       ellipsis: true,
     },
     {
-      title: "姓名",
+      title: "用户姓名",
       dataIndex: "full_name",
       width: 120,
       ellipsis: true,
@@ -77,6 +78,23 @@ export const useTable = () => {
       dataIndex: "email",
       width: 200,
       ellipsis: true,
+      render: (_, record) => (
+        <span className='flex items-center gap-2'>
+          <span className='truncate'>{record.email}</span>
+          <CopyOutlined
+            style={{ color: "#7cb305" }}
+            className='cursor-pointer'
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(record.email);
+                message.success("已复制");
+              } catch {
+                message.error("复制失败");
+              }
+            }}
+          />
+        </span>
+      ),
     },
     {
       title: "手机号",
@@ -93,6 +111,13 @@ export const useTable = () => {
         false: { text: "启用", status: "Success" },
         true: { text: "禁用", status: "Error" },
       },
+    },
+    {
+      title: "更新时间",
+      dataIndex: "updated_at",
+      width: 180,
+      search: false,
+      render: (_, record) => (record.updated_at ? dayjs(record.updated_at).format("YYYY-MM-DD HH:mm:ss") : "-"),
     },
     {
       title: "操作",

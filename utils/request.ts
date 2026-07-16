@@ -1,5 +1,3 @@
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/contants";
-import { message } from "antd";
 import axios, {
   AxiosHeaders,
   type AxiosError,
@@ -9,6 +7,54 @@ import axios, {
 } from "axios";
 
 const DEFAULT_TIMEOUT = 10000;
+
+// 从 zustand 持久化存储中读取 token
+const getAuthStorage = () => {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem("auth-storage");
+    if (!raw) return null;
+    return JSON.parse(raw).state as {
+      accessToken: string | null;
+      refreshToken: string | null;
+      isAuthenticated: boolean;
+    } | null;
+  } catch {
+    return null;
+  }
+};
+
+const getAccessToken = (): string => {
+  const storage = getAuthStorage();
+  return storage?.accessToken ?? "";
+};
+
+const getRefreshToken = (): string => {
+  const storage = getAuthStorage();
+  return storage?.refreshToken ?? "";
+};
+
+const setAuthStorage = (accessToken: string | null, refreshToken: string | null) => {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = window.localStorage.getItem("auth-storage");
+    const parsed = raw ? JSON.parse(raw) : { state: {}, version: 0 };
+    parsed.state = {
+      ...parsed.state,
+      accessToken,
+      refreshToken,
+      isAuthenticated: !!accessToken,
+    };
+    window.localStorage.setItem("auth-storage", JSON.stringify(parsed));
+  } catch {
+    // ignore
+  }
+};
+
+const clearAuthStorage = () => {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem("auth-storage");
+};
 
 // 刷新状态标记 & 请求队列
 let isRefreshing = false;
@@ -54,8 +100,6 @@ const doRefresh = async () => {
 
   return response.data.data;
 };
-
-// export const ACCESS_TOKEN_KEY = "access_token";
 
 export interface RequestConfig<D = unknown> extends AxiosRequestConfig<D> {
   skipAuth?: boolean;
@@ -105,6 +149,7 @@ axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig & Req
 
   return config;
 });
+
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
@@ -137,11 +182,8 @@ axiosInstance.interceptors.response.use(
         const data = await doRefresh();
         const newAccessToken = data.access_token;
 
-        // 更新 tokens
-        setAccessToken(newAccessToken);
-        if (data.refresh_token) {
-          setRefreshToken(data.refresh_token);
-        }
+        // 更新 zustand 存储
+        setAuthStorage(newAccessToken, data.refresh_token ?? getRefreshToken());
 
         // 处理队列中的请求
         processQueue(null, newAccessToken);
@@ -150,12 +192,9 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // 刷新失败，清除 token 并跳转登录
+        // 刷新失败，清除存储并跳转登录
         processQueue(refreshError, null);
-        clearAccessToken();
-        clearRefreshToken();
-        // return;
-        message.error("登录已过期，请重新登录");
+        clearAuthStorage();
         if (typeof window !== "undefined") {
           window.location.href = "/login";
         }
@@ -168,60 +207,9 @@ axiosInstance.interceptors.response.use(
     // 非 401 或其他错误
     const data = error.response?.data;
     const msg = data?.message ?? data?.msg ?? error.message ?? "Request failed";
-    if (status !== 401) {
-      message.error(msg);
-    }
     return Promise.reject(new RequestError(msg, { status, data }));
   },
 );
-
-const getAccessToken = () => {
-  if (typeof window === "undefined") {
-    return "";
-  }
-
-  return window.localStorage.getItem(ACCESS_TOKEN_KEY) ?? "";
-};
-
-const getRefreshToken = () => {
-  if (typeof window === "undefined") {
-    return "";
-  }
-
-  return window.localStorage.getItem(REFRESH_TOKEN_KEY) ?? "";
-};
-
-export const setAccessToken = (token: string) => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  window.localStorage.setItem(ACCESS_TOKEN_KEY, token);
-};
-
-export const setRefreshToken = (token: string) => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  window.localStorage.setItem(REFRESH_TOKEN_KEY, token);
-};
-
-export const clearAccessToken = () => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  window.localStorage.removeItem(ACCESS_TOKEN_KEY);
-};
-
-export const clearRefreshToken = () => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  window.localStorage.removeItem(REFRESH_TOKEN_KEY);
-};
 
 export const request = <T = unknown, D = unknown>(config: RequestConfig<D>) => axiosInstance.request<T, T, D>(config);
 
