@@ -8,18 +8,600 @@
 }
 
 /* ==================== 变量定义 ==================== */
-:root {
+:root,
+[data-theme="default"] {
   --background: #ffffff;
   --foreground: #171717;
   --fontInter: Arial, Helvetica, sans-serif;
+  --layout-bg: #f9f9f9;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 */
+  --color-primary: #7cb305;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #cfede2;
+  --table-label-color: #666;
+  --table-border-color: #e8e8e8;
+  --table-header-bg: #fafafa;
+  /* 操作按钮颜色 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #e5e7eb;
+  --pagination-active-bg: #f4ffb8;
+  --pagination-active-border: #7cb305;
+  --pagination-active-color: #7cb305;
+  --pagination-hover-border: #a0d911;
+  --pagination-hover-color: #a0d911;
+  --pagination-simple-bg: #7cb305;
+  --pagination-disabled-bg: #f4ffb8;
+  /* 折叠按钮颜色 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(0, 0, 0, 0.06);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #eecece;
-    --foreground: #5f5d5d;
-    --fontInter: "Inter", sans-serif;
-  }
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #0a0a0a;
+  --menu-text: #a0a0a0;
+  --menu-selected-bg: #1a1a1a;
+  --menu-hover-color: #4096ff;
+  --menu-hover-bg: #1f1f1f;
+  --layout-bg: #0a0a0a;
+  --content-bg: #141414;
+  --header-bg: #141414;
+  --scrollbar-track: #1f1f1f;
+  --scrollbar-thumb: #444;
+  --scrollbar-thumb-hover: #666;
+  --scrollbar-corner: #1f1f1f;
+  --disabled-color: rgba(255, 255, 255, 0.5);
+  --disabled-bg: rgba(255, 255, 255, 0.04);
+  /* 全局颜色 - 暗夜主题 */
+  --color-primary: #7cb305;
+  --color-error: #ff7875;
+  /* Table specific */
+  --table-selected-bg: #141414;
+  --table-selected-hover-bg: #1f1f1f;
+  --table-label-color: #a0a0a0;
+  --table-border-color: #333;
+  --table-header-bg: #1a1a1a;
+  /* 操作按钮颜色 - 暗夜主题使用低饱和度 */
+  --action-error-bg: rgba(255, 77, 79, 0.12);
+  --action-error-color: #ff7875;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.2);
+  --action-disabled-bg: rgba(255, 255, 255, 0.08);
+  --action-disabled-color: #666;
+  /* 分页组件颜色 - 暗夜主题 */
+  --pagination-item-bg: #1f1f1f;
+  --pagination-item-color: #ffffff;
+  --pagination-border: #333;
+  --pagination-active-bg: #1a1a1a;
+  --pagination-active-border: #7cb305;
+  --pagination-active-color: #a0d911;
+  --pagination-hover-border: #a0d911;
+  --pagination-hover-color: #a0d911;
+  --pagination-simple-bg: #7cb305;
+  --pagination-disabled-bg: #1a1a1a;
+  /* 折叠按钮颜色 - 暗夜主题 */
+  --sider-collapse-bg: #141414;
+  --sider-collapse-color: #ffffff;
+  --sider-collapse-hover-bg: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="purple"] {
+  --background: #faf5ff;
+  --foreground: #1a1a2e;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #1a1a2e;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #3d2766;
+  --menu-hover-color: #b37feb;
+  --menu-hover-bg: #2d1f4e;
+  --layout-bg: #faf5ff;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 紫色主题 */
+  --color-primary: #722ed1;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #f0e6ff;
+  --table-label-color: #6b6b8d;
+  --table-border-color: #e8e8e8;
+  --table-header-bg: #faf5ff;
+  /* 操作按钮颜色 - 紫色主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 紫色主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #1a1a2e;
+  --pagination-border: #d3adf7;
+  --pagination-active-bg: #f9f0ff;
+  --pagination-active-border: #722ed1;
+  --pagination-active-color: #722ed1;
+  --pagination-hover-border: #9254de;
+  --pagination-hover-color: #9254de;
+  --pagination-simple-bg: #722ed1;
+  --pagination-disabled-bg: #f9f0ff;
+  /* 折叠按钮颜色 - 紫色主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #1a1a2e;
+  --sider-collapse-hover-bg: rgba(114, 46, 209, 0.08);
+}
+
+[data-theme="orange"] {
+  --background: #fffbe6;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #3d2000;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #704200;
+  --menu-hover-color: #ffa940;
+  --menu-hover-bg: #5c3000;
+  --layout-bg: #fffbe6;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 日暮主题 */
+  --color-primary: #d46b08;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #ffe7ba;
+  --table-label-color: #666;
+  --table-border-color: #ffd591;
+  --table-header-bg: #fff7e6;
+  /* 操作按钮颜色 - 日暮主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 日暮主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #ffd591;
+  --pagination-active-bg: #fff7e6;
+  --pagination-active-border: #d46b08;
+  --pagination-active-color: #d46b08;
+  --pagination-hover-border: #fa8c16;
+  --pagination-hover-color: #fa8c16;
+  --pagination-simple-bg: #d46b08;
+  --pagination-disabled-bg: #fff7e6;
+  /* 折叠按钮颜色 - 日暮主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(212, 107, 8, 0.08);
+}
+
+[data-theme="gold"] {
+  --background: #fffbe6;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #3d2e00;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #705000;
+  --menu-hover-color: #ffc53d;
+  --menu-hover-bg: #5c4400;
+  --layout-bg: #fffbe6;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 金盏花主题 */
+  --color-primary: #d48806;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #fff1b8;
+  --table-label-color: #666;
+  --table-border-color: #ffe58f;
+  --table-header-bg: #fffbe6;
+  /* 操作按钮颜色 - 金盏花主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 金盏花主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #ffe58f;
+  --pagination-active-bg: #fffbe6;
+  --pagination-active-border: #d48806;
+  --pagination-active-color: #d48806;
+  --pagination-hover-border: #faad14;
+  --pagination-hover-color: #faad14;
+  --pagination-simple-bg: #d48806;
+  --pagination-disabled-bg: #fffbe6;
+  /* 折叠按钮颜色 - 金盏花主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(212, 136, 6, 0.08);
+}
+
+[data-theme="cyan"] {
+  --background: #e6fffb;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #003035;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #005a64;
+  --menu-hover-color: #36cfc9;
+  --menu-hover-bg: #00474f;
+  --layout-bg: #e6fffb;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 明青主题 */
+  --color-primary: #08979c;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #b5f5ec;
+  --table-label-color: #666;
+  --table-border-color: #87e8de;
+  --table-header-bg: #e6fffb;
+  /* 操作按钮颜色 - 明青主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 明青主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #87e8de;
+  --pagination-active-bg: #e6fffb;
+  --pagination-active-border: #08979c;
+  --pagination-active-color: #08979c;
+  --pagination-hover-border: #13c2c2;
+  --pagination-hover-color: #13c2c2;
+  --pagination-simple-bg: #08979c;
+  --pagination-disabled-bg: #e6fffb;
+  /* 折叠按钮颜色 - 明青主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(8, 151, 156, 0.08);
+}
+
+[data-theme="magenta"] {
+  --background: #fff0f6;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #39001a;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #780650;
+  --menu-hover-color: #f759ab;
+  --menu-hover-bg: #520339;
+  --layout-bg: #fff0f6;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 法式洋红主题 */
+  --color-primary: #c41d7f;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #ffd6e7;
+  --table-label-color: #666;
+  --table-border-color: #ffadd2;
+  --table-header-bg: #fff0f6;
+  /* 操作按钮颜色 - 法式洋红主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 法式洋红主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #ffadd2;
+  --pagination-active-bg: #fff0f6;
+  --pagination-active-border: #c41d7f;
+  --pagination-active-color: #c41d7f;
+  --pagination-hover-border: #eb2f96;
+  --pagination-hover-color: #eb2f96;
+  --pagination-simple-bg: #c41d7f;
+  --pagination-disabled-bg: #fff0f6;
+  /* 折叠按钮颜色 - 法式洋红主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(196, 29, 127, 0.08);
+}
+
+[data-theme="geekblue"] {
+  --background: #f0f5ff;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #061178;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #10239e;
+  --menu-hover-color: #85a5ff;
+  --menu-hover-bg: #003a8c;
+  --layout-bg: #f0f5ff;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 极客蓝主题 */
+  --color-primary: #1d39c4;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #d6e4ff;
+  --table-label-color: #666;
+  --table-border-color: #adc6ff;
+  --table-header-bg: #f0f5ff;
+  /* 操作按钮颜色 - 极客蓝主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 极客蓝主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #adc6ff;
+  --pagination-active-bg: #f0f5ff;
+  --pagination-active-border: #1d39c4;
+  --pagination-active-color: #1d39c4;
+  --pagination-hover-border: #2f54eb;
+  --pagination-hover-color: #2f54eb;
+  --pagination-simple-bg: #1d39c4;
+  --pagination-disabled-bg: #f0f5ff;
+  /* 折叠按钮颜色 - 极客蓝主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(29, 57, 196, 0.08);
+}
+
+[data-theme="volcano"] {
+  --background: #fff2e8;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #610b00;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #a8071a;
+  --menu-hover-color: #ffa940;
+  --menu-hover-bg: #871400;
+  --layout-bg: #fff2e8;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 火山主题 */
+  --color-primary: #d4380d;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #ffd8bf;
+  --table-label-color: #666;
+  --table-border-color: #ffbb96;
+  --table-header-bg: #fff2e8;
+  /* 操作按钮颜色 - 火山主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 火山主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #ffbb96;
+  --pagination-active-bg: #fff2e8;
+  --pagination-active-border: #d4380d;
+  --pagination-active-color: #d4380d;
+  --pagination-hover-border: #fa541c;
+  --pagination-hover-color: #fa541c;
+  --pagination-simple-bg: #d4380d;
+  --pagination-disabled-bg: #fff2e8;
+  /* 折叠按钮颜色 - 火山主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(212, 56, 13, 0.08);
+}
+
+[data-theme="red"] {
+  --background: #fff1f0;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #5c0011;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #a8071a;
+  --menu-hover-color: #ff4d4f;
+  --menu-hover-bg: #820014;
+  --layout-bg: #fff1f0;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 薄暮主题 */
+  --color-primary: #cf1322;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #ffccc7;
+  --table-label-color: #666;
+  --table-border-color: #ffa39e;
+  --table-header-bg: #fff1f0;
+  /* 操作按钮颜色 - 薄暮主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 薄暮主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #ffa39e;
+  --pagination-active-bg: #fff1f0;
+  --pagination-active-border: #cf1322;
+  --pagination-active-color: #cf1322;
+  --pagination-hover-border: #f5222d;
+  --pagination-hover-color: #f5222d;
+  --pagination-simple-bg: #cf1322;
+  --pagination-disabled-bg: #fff1f0;
+  /* 折叠按钮颜色 - 薄暮主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(207, 19, 34, 0.08);
+}
+
+[data-theme="yellow"] {
+  --background: #feffe6;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #614700;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #ad8b00;
+  --menu-hover-color: #ffe58f;
+  --menu-hover-bg: #876800;
+  --layout-bg: #feffe6;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 日出主题 */
+  --color-primary: #d4b106;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #fff1b8;
+  --table-label-color: #666;
+  --table-border-color: #ffe58f;
+  --table-header-bg: #feffe6;
+  /* 操作按钮颜色 - 日出主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 日出主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #ffe58f;
+  --pagination-active-bg: #feffe6;
+  --pagination-active-border: #d4b106;
+  --pagination-active-color: #d4b106;
+  --pagination-hover-border: #fadb14;
+  --pagination-hover-color: #fadb14;
+  --pagination-simple-bg: #d4b106;
+  --pagination-disabled-bg: #feffe6;
+  /* 折叠按钮颜色 - 日出主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(212, 177, 6, 0.08);
+}
+
+[data-theme="blue"] {
+  --background: #e6f4ff;
+  --foreground: #171717;
+  --fontInter: "Inter", sans-serif;
+  --menu-bg: #001d66;
+  --menu-text: #ffffff;
+  --menu-selected-bg: #003eb3;
+  --menu-hover-color: #4096ff;
+  --menu-hover-bg: #00228c;
+  --layout-bg: #e6f4ff;
+  --content-bg: #ffffff;
+  --header-bg: #ffffff;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+  --scrollbar-thumb-hover: #555;
+  --scrollbar-corner: #f1f1f1;
+  --disabled-color: rgba(0, 0, 0, 0.7);
+  --disabled-bg: rgba(0, 0, 0, 0.04);
+  /* 全局颜色 - 拂晓蓝主题 */
+  --color-primary: #0958d9;
+  --color-error: #ff4d4f;
+  /* Table specific */
+  --table-selected-bg: #ffffff;
+  --table-selected-hover-bg: #bae0ff;
+  --table-label-color: #666;
+  --table-border-color: #91caff;
+  --table-header-bg: #e6f4ff;
+  /* 操作按钮颜色 - 拂晓蓝主题 */
+  --action-error-bg: rgba(255, 77, 79, 0.08);
+  --action-error-color: #ff4d4f;
+  --action-error-hover-bg: rgba(255, 77, 79, 0.16);
+  --action-disabled-bg: rgba(191, 198, 208, 0.08);
+  --action-disabled-color: #bfc4d0;
+  /* 分页组件颜色 - 拂晓蓝主题 */
+  --pagination-item-bg: #ffffff;
+  --pagination-item-color: #171717;
+  --pagination-border: #91caff;
+  --pagination-active-bg: #e6f4ff;
+  --pagination-active-border: #0958d9;
+  --pagination-active-color: #0958d9;
+  --pagination-hover-border: #1677ff;
+  --pagination-hover-color: #1677ff;
+  --pagination-simple-bg: #0958d9;
+  --pagination-disabled-bg: #e6f4ff;
+  /* 折叠按钮颜色 - 拂晓蓝主题 */
+  --sider-collapse-bg: transparent;
+  --sider-collapse-color: #171717;
+  --sider-collapse-hover-bg: rgba(9, 88, 217, 0.08);
 }
 
 /* ==================== 全局样式 ==================== */
@@ -49,7 +631,7 @@ body {
       margin: 10px 8px;
       padding: 12px !important;
       min-height: 280px;
-      background: rgb(255, 255, 255);
+      background: var(--content-bg) !important;
       border-radius: 8px;
       overflow: auto;
     }
@@ -63,20 +645,20 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: var(--scrollbar-thumb);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  background-color: var(--scrollbar-thumb-hover);
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: #f1f1f1;
+  background-color: var(--scrollbar-corner);
 }
 
 /* ==================== 加载页面 ==================== */
@@ -92,7 +674,7 @@ body {
 
 /* Layout 背景色 */
 .ant-pro-layout {
-  background: #f9f9f9 !important;
+  background: var(--layout-bg) !important;
 }
 
 /* Header 配置 */
@@ -100,7 +682,7 @@ body {
   height: 50px !important;
   padding: 6 !important;
   line-height: 50px !important;
-  background: #fff !important;
+  background: var(--header-bg) !important;
 }
 
 /* Sider 菜单配置 */
@@ -117,28 +699,28 @@ body {
   }
 }
 
-/* 菜单背景色 */
-.ant-pro-sider-menu {
-  background: #1f2937 !important;
+/* 菜单背景色 - 仅对 dark 主题生效 */
+[data-theme="dark"] .ant-pro-sider-menu {
+  background: var(--menu-bg) !important;
 }
 
-/* 菜单文本色 - 未选中 */
-.ant-pro-sider-menu .ant-menu-item,
-.ant-pro-sider-menu .ant-menu-submenu-title {
-  color: #fff !important;
+/* 菜单文本色 - 仅对 dark 主题生效 */
+[data-theme="dark"] .ant-pro-sider-menu .ant-menu-item,
+[data-theme="dark"] .ant-pro-sider-menu .ant-menu-submenu-title {
+  color: var(--menu-text) !important;
 }
 
-/* 菜单项选中背景色 */
-.ant-pro-sider-menu .ant-menu-item-selected {
-  background: #4c545f !important;
-  color: #fff !important;
+/* 菜单项选中背景色 - 仅对 dark 主题生效 */
+[data-theme="dark"] .ant-pro-sider-menu .ant-menu-item-selected {
+  background: var(--menu-selected-bg) !important;
+  color: var(--menu-text) !important;
 }
 
-/* 菜单项 hover */
-.ant-pro-sider-menu .ant-menu-item:hover,
-.ant-pro-sider-menu .ant-menu-submenu-title:hover {
-  color: #14d4c9 !important;
-  background: #404e4e !important;
+/* 菜单项 hover - 仅对 dark 主题生效 */
+[data-theme="dark"] .ant-pro-sider-menu .ant-menu-item:hover,
+[data-theme="dark"] .ant-pro-sider-menu .ant-menu-submenu-title:hover {
+  color: var(--menu-hover-color) !important;
+  background: var(--menu-hover-bg) !important;
 }
 
 /* PageContainer 配置 */
@@ -151,21 +733,31 @@ body {
   }
 }
 
+/* ==================== 折叠按钮样式 ==================== */
+.sider-collapse-btn {
+  color: var(--sider-collapse-color) !important;
+  background: var(--sider-collapse-bg) !important;
+}
+
+.sider-collapse-btn:hover {
+  background: var(--sider-collapse-hover-bg) !important;
+}
+
 /* ==================== Ant Design 表单覆盖 ==================== */
 .ant-form-item {
   .ant-form-item-control {
 
     .ant-radio-wrapper .ant-radio-disabled .ant-radio-inner::after {
-      background-color: rgba(0, 0, 0, 0.7) !important;
+      background-color: var(--disabled-color) !important;
     }
 
     .ant-checkbox-disabled .ant-checkbox-inner:after {
-      border-color: #000 !important;
+      border-color: var(--disabled-color) !important;
     }
 
     .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      color: rgba(0, 0, 0, 0.7);
-      background: rgba(0, 0, 0, 0.04);
+      color: var(--disabled-color);
+      background: var(--disabled-bg);
     }
 
     .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
@@ -178,7 +770,7 @@ body {
 
     .ant-input-disabled,
     .ant-input[disabled] {
-      color: rgba(0, 0, 0, 0.7);
+      color: var(--disabled-color);
     }
 
     .ant-input-number {
@@ -187,16 +779,16 @@ body {
 
     .ant-input-number-disabled,
     .ant-input-number[disabled] {
-      color: rgba(0, 0, 0, 0.7);
+      color: var(--disabled-color);
     }
 
     .ant-picker .ant-picker-input>input-disabled,
     .ant-picker .ant-picker-input>input[disabled] {
-      color: rgba(0, 0, 0, 0.7);
+      color: var(--disabled-color);
     }
 
     .ant-radio-wrapper-disabled {
-      color: rgba(0, 0, 0, 0.7);
+      color: var(--disabled-color);
     }
   }
 }

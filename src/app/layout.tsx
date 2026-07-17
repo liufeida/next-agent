@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { ReactQueryProvider } from "@/stores";
-import { themeConfig } from "@/theme/antd-theme";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { App, ConfigProvider } from "antd";
+import { App } from "antd";
 import type { Metadata } from "next";
 import "../theme/globals.css";
 
@@ -28,9 +27,7 @@ export default function RootLayout({
       <body>
         <ReactQueryProvider>
           <AntdRegistry>
-            <App>
-              <ConfigProvider theme={themeConfig}>{children}</ConfigProvider>
-            </App>
+            <App>{children}</App>
           </AntdRegistry>
         </ReactQueryProvider>
       </body>

@@ -12,10 +12,8 @@
     }
 
     span {
-      /* // 加了icon后再放开 */
-      /* // padding-left: 10px; */
       font-size: 20px;
-      color: #111;
+      color: var(--foreground);
       font-weight: bold;
     }
   }
@@ -29,33 +27,80 @@
     justify-content: center;
   }
 
-  /* //选中行的颜色 */
+  /* 选中行的颜色 */
   .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected>.ant-table-cell {
-    background: #ffffff;
+    background: var(--table-selected-bg);
   }
 
-  /* //选中行的颜色 */
+  /* 选中行 hover 的颜色 */
   .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected>.ant-table-cell-row-hover {
-    background: rgb(207, 226, 220);
+    background: var(--table-selected-hover-bg);
   }
 
-  /* // 搜索表单 */
+  /* 搜索表单标签颜色 */
   .ant-form-item-label>label {
-    /* // font-size: 14px; */
-    color: #666;
+    color: var(--table-label-color);
   }
 
-  /* // 表格头这一行的颜色 */
-  /* // .ant-table-thead > tr > th {
-  //   background-color: #c7f1ed;
-  // } */
+  /* 搜索表单背景色 */
+  .ant-pro-table-search,
+  .ant-pro-table-search .ant-pro-form-search-panel {
+    background-color: var(--ant-color-bg-container) !important;
+  }
 
-  /* // 分页组件 */
+  /* ProTable 筛选表单 */
+  .ant-pro-card .ant-pro-table-search,
+  .ant-pro-card .ant-pro-form-search-panel {
+    background-color: var(--ant-color-bg-container) !important;
+  }
+
+  /* 分页组件 */
   .ant-table-pagination-right {
     justify-content: center;
   }
 
-  .ant-pagination.ant-pagination-simple {
+  /* 普通分页 - 当前激活页码 */
+  .ant-pagination .ant-pagination-item-active {
+    background-color: var(--pagination-active-bg);
+    border-color: var(--pagination-active-border);
+  }
+
+  .ant-pagination .ant-pagination-item-active a {
+    color: var(--pagination-active-color);
+  }
+
+  .ant-pagination .ant-pagination-item {
+    background-color: var(--pagination-item-bg);
+    border-color: var(--pagination-border);
+  }
+
+  .ant-pagination .ant-pagination-item a {
+    color: var(--pagination-item-color);
+  }
+
+  .ant-pagination .ant-pagination-item:hover {
+    border-color: var(--pagination-hover-border);
+  }
+
+  .ant-pagination .ant-pagination-item:hover a {
+    color: var(--pagination-hover-color);
+  }
+
+  /* 上一页/下一页按钮 */
+  .ant-pagination .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination .ant-pagination-next .ant-pagination-item-link {
+    background-color: var(--pagination-item-bg);
+    border-color: var(--pagination-border);
+    color: var(--pagination-item-color);
+  }
+
+  .ant-pagination .ant-pagination-prev:hover .ant-pagination-item-link,
+  .ant-pagination .ant-pagination-next:hover .ant-pagination-item-link {
+    border-color: var(--pagination-hover-border);
+    color: var(--pagination-hover-color);
+  }
+
+  .ant-pagination .ant-pagination-simple {
     .ant-pagination-prev {
       margin-right: 19px;
     }
@@ -67,7 +112,7 @@
     .ant-pagination-item-link,
     .ant-pagination-item-link:hover,
     .ant-pagination-item-link:active {
-      background-color: #7cb305;
+      background-color: var(--pagination-simple-bg, #7cb305);
       border-color: transparent;
       color: #fff;
     }
@@ -76,9 +121,9 @@
     .ant-pagination-disabled:hover .ant-pagination-item-link,
     .ant-pagination-disabled .ant-pagination-item-link:hover,
     .ant-pagination-disabled .ant-pagination-item-link:active {
-      background-color: #f4ffb8;
+      background-color: var(--pagination-disabled-bg, #f4ffb8);
       border-color: transparent;
-      color: #e6e6e8;
+      color: var(--disabled-color);
       cursor: not-allowed;
     }
   }
@@ -91,15 +136,15 @@
     height: 32px;
     border: none;
     border-radius: 8px;
-    background: rgba(255, 77, 79, 0.08);
-    color: #ff4d4f;
+    background: var(--action-error-bg);
+    color: var(--action-error-color);
     font-size: 14px;
     cursor: pointer;
     transition: all 0.25s ease;
 
     &:hover {
-      background: rgba(255, 77, 79, 0.16);
-      box-shadow: 0 2px 8px rgba(255, 77, 79, 0.15);
+      background: var(--action-error-hover-bg);
+      box-shadow: 0 2px 8px var(--action-error-hover-bg);
     }
 
     &:active {
@@ -107,12 +152,12 @@
     }
 
     &.disabled {
-      background: rgba(191, 198, 208, 0.08);
-      color: #bfc4d0;
+      background: var(--action-disabled-bg);
+      color: var(--action-disabled-color);
       cursor: not-allowed;
 
       &:hover {
-        background: rgba(191, 198, 208, 0.08);
+        background: var(--action-disabled-bg);
         box-shadow: none;
       }
 

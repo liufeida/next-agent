@@ -1,38 +1,22 @@
 import type { ThemeConfig } from "antd";
+import { defaultTheme } from "./themes";
 
-export const themeConfig: ThemeConfig = {
-  token: {
-    colorPrimary: "#7cb305", // lime-6，主色
-    fontSize: 16,
-  },
-  components: {
-    Button: {
-      primaryColor: "#fff",
-      colorPrimary: "#7cb305", // lime-6
-      colorPrimaryHover: "#a0d911", // lime-5
-    },
-    Table: {
-      headerBg: "#f4ffb8", // lime-0
-    },
-    Menu: {
-      itemSelectedColor: "#7cb305", // lime-6
-      subMenuItemSelectedColor: "#fff",
-    },
-    Checkbox: {
-      lineHeight: 1.8,
-    },
-    Form: {
-      itemMarginBottom: 8,
-      labelFontSize: 18,
-      verticalLabelMargin: 2,
-    },
-    Radio: {
-      wrapperMarginInlineEnd: 80,
-    },
-    Pagination: {
-      colorPrimary: "#7cb305", // lime-6
-      itemActiveBg: "#f4ffb8", // lime-0
-    },
-  },
-  hashed: false,
-};
+// 保持向后兼容，导出默认主题
+export const themeConfig: ThemeConfig = defaultTheme;
+
+// 导出所有主题
+export {
+  cyanTheme,
+  darkTheme,
+  geekblueTheme,
+  goldTheme,
+  magentaTheme,
+  orangeTheme,
+  purpleTheme,
+  volcanoTheme,
+  redTheme,
+  yellowTheme,
+  blueTheme,
+  themeMap,
+  themeOptions,
+} from "./themes";

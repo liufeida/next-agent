@@ -2,15 +2,11 @@
 "use client";
 
 import turtleImage from "@/assets/images/logo.png";
-import { useAuthStore, useLogout } from "@/stores";
-import {
-  LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { App, Avatar, Button, Dropdown, Layout, Menu, theme } from "antd";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { useAppSettingsStore, useAuthStore, useLogout } from "@/stores";
+import { LogoutOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { App, Avatar, Dropdown, Layout, Menu, theme } from "antd";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -25,8 +21,9 @@ export default function AppLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { theme: currentTheme } = useAppSettingsStore();
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer, borderRadiusLG, colorBorder, colorText, colorSplit },
   } = theme.useToken();
   const logoutMutation = useLogout();
   const userInfo = useAuthStore((state) => state.userInfo);
@@ -48,62 +45,71 @@ export default function AppLayout({
   ];
 
   return (
-    <Layout className='flex h-screen flex-col'>
-      <Header
-        className='flex h-14 items-center justify-between border-b border-gray-200 px-0'
-        style={{ background: colorBgContainer }}
-      >
-        <div className='flex items-center gap-3 pl-1'>
-          <Image src={turtleImage} alt='Logo' width={32} height={32} className='h-8 w-auto' priority loading='eager' />
-          <span className='text-lg font-semibold text-gray-800'>老巨头</span>
-        </div>
-        <div className='flex items-center pr-4'>
-          <Dropdown menu={{ items: dropdownItems }} trigger={["click"]} placement='bottomRight'>
-            <Avatar size='large' icon={<UserOutlined />} src={userInfo?.avatar_url} className='cursor-pointer' />
-          </Dropdown>
-        </div>
-      </Header>
-      <Layout className='flex flex-1 overflow-hidden'>
-        <Sider
-          theme='light'
-          trigger={null}
-          collapsible
-          collapsed={collapsed}
-          className='overflow-auto border-r border-gray-200'
+    <ThemeProvider>
+      <Layout className='flex h-screen flex-col'>
+        <Header
+          className='flex h-14 items-center justify-between px-0'
+          style={{
+            background: colorBgContainer,
+            borderBottom: `1px solid ${colorSplit}`,
+          }}
         >
-          <div className='sticky bottom-0 border-t border-gray-200 bg-gray-50 text-center'>
-            <Button
-              className='h-11 w-full'
-              block
-              type='text'
-              size='large'
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
+          <div className='flex cursor-pointer items-center gap-3 pl-1' onClick={() => setCollapsed(!collapsed)}>
+            <Image
+              src={turtleImage}
+              alt='Logo'
+              width={32}
+              height={32}
+              className='h-8 w-auto'
+              priority
+              loading='eager'
             />
+            <span className='text-lg font-semibold' style={{ color: colorText }}>
+              老巨头
+            </span>
           </div>
-          <Menu
-            theme='light'
-            mode='inline'
-            tooltip={false}
-            defaultSelectedKeys={[pathname]}
-            items={[
-              {
-                key: "/home",
-                icon: <UserOutlined />,
-                label: "首页",
-                onClick: () => router.push("/home"),
-              },
-              {
-                key: "/user-manage",
-                icon: <VideoCameraOutlined />,
-                label: "用户管理",
-                onClick: () => router.push("/user-manage"),
-              },
-            ]}
-          />
-        </Sider>
-        <Content className='m-2.5 overflow-auto rounded-lg bg-white p-6'>{children}</Content>
+          <div className='flex items-center gap-4 pr-4'>
+            <ThemeSwitcher />
+            <Dropdown menu={{ items: dropdownItems }} trigger={["click"]} placement='bottomRight'>
+              <Avatar size='large' icon={<UserOutlined />} src={userInfo?.avatar_url} className='cursor-pointer' />
+            </Dropdown>
+          </div>
+        </Header>
+        <Layout className='flex flex-1 overflow-hidden'>
+          <Sider
+            theme={currentTheme === "dark" ? "dark" : "light"}
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
+            className='overflow-auto'
+            style={{ borderRight: `1px solid ${colorSplit}` }}
+          >
+            <Menu
+              theme={currentTheme === "dark" ? "dark" : "light"}
+              mode='inline'
+              tooltip={false}
+              defaultSelectedKeys={[pathname]}
+              items={[
+                {
+                  key: "/home",
+                  icon: <UserOutlined />,
+                  label: "首页",
+                  onClick: () => router.push("/home"),
+                },
+                {
+                  key: "/user-manage",
+                  icon: <VideoCameraOutlined />,
+                  label: "用户管理",
+                  onClick: () => router.push("/user-manage"),
+                },
+              ]}
+            />
+          </Sider>
+          <Content className='m-2.5 overflow-auto rounded-lg p-6' style={{ background: colorBgContainer }}>
+            {children}
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </ThemeProvider>
   );
 }

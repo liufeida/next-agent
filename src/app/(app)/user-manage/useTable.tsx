@@ -82,7 +82,7 @@ export const useTable = () => {
         <span className='flex items-center gap-2'>
           <span className='truncate'>{record.email}</span>
           <CopyOutlined
-            style={{ color: "#7cb305" }}
+            style={{ color: "var(--color-primary, #7cb305)" }}
             className='cursor-pointer'
             onClick={async () => {
               try {
@@ -126,7 +126,7 @@ export const useTable = () => {
       fixed: "right",
       width: 120,
       render: (_, record) => [
-        <a key='delete' style={{ color: "#ff4d4f" }} onClick={() => handleDelete(record)}>
+        <a key='delete' style={{ color: "var(--color-error, #ff4d4f)" }} onClick={() => handleDelete(record)}>
           删除
         </a>,
         <a key='edit' onClick={() => handleEdit(record)}>
